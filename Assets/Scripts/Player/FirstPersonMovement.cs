@@ -118,6 +118,8 @@ public class FirstPersonMovement : MonoBehaviour
         {
             SprintFunction();
         }
+        
+        
     }
 
     //Walking
