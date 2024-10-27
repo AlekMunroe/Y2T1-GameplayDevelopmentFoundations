@@ -1,6 +1,11 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
+using UnityEngine.Animations;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -9,8 +14,12 @@ public class DialogueManager : MonoBehaviour
     public GameObject choiceButtonPrefab;
     public Transform choiceButtonContainer;
 
+    public GameObject FadeUI;
+
     private DialogueNode currentNode;
     private bool isProcessingChoice = false; //Used to check if the script is waiting for a choice input
+    
+    private AudioSource lastAudioSource;
 
     public void StartDialogue(StartNode startNode)
     {
@@ -52,6 +61,34 @@ public class DialogueManager : MonoBehaviour
             currentNode = playerPrefNode.GetNextNode(); //Get the next node
             ProcessNode(); //Process the next node
         }
+        else if (currentNode is PlayerFreezeNode playerFreezeNode)
+        {
+            //Automatically process the PlayerFreezeNode - This will automatically save and move to the next node
+            //This should be invisible to the user
+            currentNode = playerFreezeNode.GetNextNode(); //Get the next node
+            ProcessNode(); //Process the next node
+        }
+        else if (currentNode is CameraSwitchNode cameraSwitchNode)
+        {
+            //Automatically process the CameraSwitchNode - This will automatically save and move to the next node
+            //This should be invisible to the user
+            cameraSwitchNode.GetNextNode(); //Save the value
+            currentNode = cameraSwitchNode.GetNextNode(); //Get the next node
+            ProcessNode(); //Process the next node
+        }
+        else if (currentNode is DestroyNode destroyNode)
+        {
+            //Automatically process the CameraSwitchNode - This will automatically save and move to the next node
+            //This should be invisible to the user
+            destroyNode.GetNextNode(); //Save the value
+            currentNode = destroyNode.GetNextNode(); //Get the next node
+            ProcessNode(); //Process the next node
+        }
+        else if (currentNode is SwitchSceneNode switchSceneNode)
+        {
+            //Fade and switch to the next scene, we do not need to do anything else
+            StartCoroutine(SwitchScene(switchSceneNode.sceneIndex));
+        }
         else if (currentNode is EndNode)
         {
             //If we see an end node, end the dialogue
@@ -65,19 +102,21 @@ public class DialogueManager : MonoBehaviour
         speakerText.text = node.speakerName;
         dialogueText.text = node.dialogueText;
 
-        //Play the audio and animation
-        //TODO: Test this, it is untested and just threw in there
+        //Play the audio
         PlayAudioClip(node.audioClip);
-        TriggerAnimation(node.animationClip);
+        
+        //Play the animation
+        TriggerAnimation(node);
 
-        currentNode = node.GetNextNode(); //Mode to the next node when the next button is pressed
-                                          //TODO: Make it continue automatically when the audio has finished
-                                          //      This can be done by either setting a float for time - Like with Aisle 21
-                                          //      Or make it finish when the audio finishes (preferred)
+        currentNode = node.GetNextNode();
     }
 
     private void DisplayChoices(ChoiceNode node)
     {
+        PlayAudioClip(node.audioClip);
+        
+        TriggerAnimation(node);
+        
         speakerText.text = node.speakerName;
         dialogueText.text = node.dialogueText;
 
@@ -127,18 +166,67 @@ public class DialogueManager : MonoBehaviour
 
     private void PlayAudioClip(AudioClip clip)
     {
+        // Stop the previous audio if it's playing
+        if (lastAudioSource != null && lastAudioSource.isPlaying)
+        {
+            lastAudioSource.Stop();
+            Destroy(lastAudioSource.gameObject); // Clean up the AudioSource
+        }
+
         if (clip != null)
         {
-            //TODO: Test this
-            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+            // Get the currently active camera
+            Camera activeCamera = Camera.allCameras.FirstOrDefault(cam => cam.isActiveAndEnabled);
+
+            if (activeCamera != null)
+            {
+                // Create a new GameObject for the AudioSource at the camera's position
+                GameObject audioObject = new GameObject("DialogueAudioSource");
+                audioObject.transform.position = activeCamera.transform.position;
+
+                // Add an AudioSource component, configure it, and play the clip
+                lastAudioSource = audioObject.AddComponent<AudioSource>();
+                lastAudioSource.clip = clip;
+                lastAudioSource.Play();
+
+                // Destroy the AudioSource GameObject after the clip finishes
+                Destroy(audioObject, clip.length);
+            }
         }
     }
 
-    private void TriggerAnimation(AnimationClip animationClip)
+
+    private void TriggerAnimation(DialogueNode node)
     {
-        if (animationClip != null)
+        if (node.animationClip != null && !string.IsNullOrEmpty(node.targetAnimationObjectName))
         {
-            //TODO: Make animations work using the animator component
+            GameObject targetObject = DialogueUtilities.FindObjectByName(node.targetAnimationObjectName);
+
+            if (targetObject != null)
+            {
+                Animation animation = targetObject.GetComponent<Animation>();
+                if (animation == null)
+                {
+                    animation = targetObject.AddComponent<Animation>();
+                }
+
+                animation.clip = node.animationClip;
+                animation.Play();
+            }
+            else
+            {
+                Debug.LogError("Target animation object not found: " + node.targetAnimationObjectName);
+            }
         }
+    }
+
+
+    private IEnumerator SwitchScene(int sceneIndex)
+    {
+        FadeUI.SetActive(true);
+        
+        yield return new WaitForSeconds(1.5f);
+        
+        SceneManager.LoadScene(sceneIndex);
     }
 }

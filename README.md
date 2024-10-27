@@ -20,3 +20,20 @@ V3
 * Imported: xNode (https://github.com/Siccity/xNode) to allow us to create graphs
 * Imported: PlayerPrefs Editor (https://assetstore.unity.com/packages/tools/utilities/playerprefs-editor-167903) to allow us to easily manipulate the playerprefs via the Unity UI
 * Demos of the development for the dialogue system can be found here: https://www.youtube.com/watch?v=djgXvdNBEYc https://www.youtube.com/watch?v=dqqKegGubGQ
+
+V4
+* Merged the grey box court scene with the main game.
+
+V5
+* Added Nodes: CameraSwitchNode, PlayerFreezeNode, SceneSwitchNode
+* Updated Player: Removed unnecessary functions, added freeze and unfreeze function
+* Created a dialogue tree for the grey box level
+
+V6
+* Updated DialogueManager: Tested and fixed the PlayAudioClip() function
+* Used https://ttsmp3.com for the text to speech
+
+V7
+* Added animations into the monologue and choice nodes
+* Created DestroyNode to destroy game objects from within the dialogue graph
+* Moved the FindObjectByName function into DialogueUtilities for reusability across scripts within the dialogue system
