@@ -67,7 +67,9 @@ public class DEV_ConsoleController : MonoBehaviour
             else
             {
                 //If no scene is entered, show help
-                outputText.text += "Scenes you can load: \n MainMenu \n 1_1 \n 2_1 \n Temporary \n _devLog \n ModelViewer";
+                outputText.text += "Scenes you can load: " +
+                                   "\n MainMenu \n 1_1 \n 2_1 \n 2_2 \n 3_1 \n 3_2 \n EndOfDemo " +
+                                   "\n \n Temporary \n _devLog \n ModelViewer";
             }
         }
         //"ReloadScene" command

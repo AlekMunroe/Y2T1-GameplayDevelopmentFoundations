@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -25,6 +26,20 @@ public class DialogueManager : MonoBehaviour
     private AudioSource lastAudioSource;
 
     private bool isGamePaused;
+
+    public static DialogueManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

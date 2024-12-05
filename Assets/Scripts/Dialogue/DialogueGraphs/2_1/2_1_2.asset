@@ -482,59 +482,6 @@ MonoBehaviour:
   playerCam: PlayerCamera_Cam01
   disableCam: SceneCamera_Judge
   enableCam: SceneCamera_Kate
---- !u!114 &-5247802200752510521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9071c8e61b9428895bac6f487870bb, type: 3}
-  m_Name: Monologue
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1608, y: -104}
-  ports:
-    keys:
-    - nextNode
-    - input
-    values:
-    - _fieldName: nextNode
-      _node: {fileID: -5247802200752510521}
-      _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: 4495670505553783837}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: input
-      _node: {fileID: -5247802200752510521}
-      _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: nextNode
-        node: {fileID: 3008553383649314480}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  input: {fileID: 0}
-  speakerName: Judge Denman
-  dialogueText: Miss webster, do you swear that you will be faithful and bear true
-    allegiance to Her Majesty Queen Victoria, her heirs and successors, according
-    to law? So help you God.
-  audioClip: {fileID: 0}
-  animationClip: {fileID: 0}
-  targetAnimationObjectName: 
-  nextNode: {fileID: 0}
-  objectName: DialogueAudioSource_Null
 --- !u!114 &-5247068795813323104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,6 +792,58 @@ MonoBehaviour:
   playerCam: PlayerCamera_Cam01
   disableCam: SceneCamera_Kate
   enableCam: SceneCamera_Judge
+--- !u!114 &-3842179254670123596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9071c8e61b9428895bac6f487870bb, type: 3}
+  m_Name: Monologue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1448, y: -72}
+  ports:
+    keys:
+    - nextNode
+    - input
+    values:
+    - _fieldName: nextNode
+      _node: {fileID: -3842179254670123596}
+      _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: 8087490009874156886}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: -3842179254670123596}
+      _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: nextNode
+        node: {fileID: 3008553383649314480}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
+  speakerName: Judge Denman
+  dialogueText: Miss webster, do you swear that you will be faithful and bear true
+    allegiance to Her Majesty Queen Victoria,
+  audioClip: {fileID: 0}
+  animationClip: {fileID: 0}
+  targetAnimationObjectName: 
+  nextNode: {fileID: 0}
+  objectName: DialogueAudioSource_Null
 --- !u!114 &-3360975948736870303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1077,8 +1076,7 @@ MonoBehaviour:
   input: {fileID: 0}
   speakerName: Judge Denman
   dialogueText: Miss webster, do you swear that you will be faithful and bear true
-    allegiance to Her Majesty Queen Victoria, her heirs and successors, according
-    to law? So help you God.
+    allegiance to Her Majesty Queen Victoria
   audioClip: {fileID: 0}
   animationClip: {fileID: 0}
   targetAnimationObjectName: 
@@ -1369,7 +1367,6 @@ MonoBehaviour:
   - {fileID: -2654824155330888516}
   - {fileID: -1981644216876970317}
   - {fileID: 3008553383649314480}
-  - {fileID: -5247802200752510521}
   - {fileID: 4495670505553783837}
   - {fileID: -2583563192296544171}
   - {fileID: 2608390081121357949}
@@ -1402,6 +1399,8 @@ MonoBehaviour:
   - {fileID: -1245667318692209955}
   - {fileID: 8864433043460857683}
   - {fileID: -5247068795813323104}
+  - {fileID: -3842179254670123596}
+  - {fileID: 8087490009874156886}
   startNode: {fileID: -6158655987075435702}
 --- !u!114 &153827916642371278
 MonoBehaviour:
@@ -1587,7 +1586,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: -5247802200752510521}
+        node: {fileID: -3842179254670123596}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -1741,7 +1740,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: nextNode
-        node: {fileID: -5247802200752510521}
+        node: {fileID: 8087490009874156886}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -2036,6 +2035,57 @@ MonoBehaviour:
   input: {fileID: 0}
   speakerName: Judge Denman
   dialogueText: We shall see if the evidence aligns with your claim, Miss Webster.
+  audioClip: {fileID: 0}
+  animationClip: {fileID: 0}
+  targetAnimationObjectName: 
+  nextNode: {fileID: 0}
+  objectName: DialogueAudioSource_Null
+--- !u!114 &8087490009874156886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9071c8e61b9428895bac6f487870bb, type: 3}
+  m_Name: Monologue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1688, y: -168}
+  ports:
+    keys:
+    - nextNode
+    - input
+    values:
+    - _fieldName: nextNode
+      _node: {fileID: 8087490009874156886}
+      _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: 4495670505553783837}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: 8087490009874156886}
+      _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: nextNode
+        node: {fileID: -3842179254670123596}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
+  speakerName: Judge Denman
+  dialogueText: her heirs and successors, according to law? So help you God.
   audioClip: {fileID: 0}
   animationClip: {fileID: 0}
   targetAnimationObjectName: 

@@ -107,3 +107,12 @@ V12
 * Updated hint UI
 * Added a Billboarding script
 * Added a test cross texture
+
+V13 + V14
+* Missing Logs
+
+V15
+* Completed scenes
+* Fixed bugs
+* Updated models
+* Updated textures
